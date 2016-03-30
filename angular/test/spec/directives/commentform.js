@@ -20,8 +20,8 @@ describe('Directive: commentForm', function () {
   it('should submit the form when user enters msg and author', function (){
     form.author.$setViewValue('Santiago');
     form.msg.$setViewValue('Msg 1');
-    element.find('input')[2].click();
-    expect(scope.$emit).toHaveBeenCalledWith('submitted', { author: 'Santiago', msg: 'Msg 1'} );
+    element.find('input')[2].click();        
+    expect(scope.$emit).toHaveBeenCalledWith('submitted', { author: 'Santiago', msg: 'Msg 1', isoDateAndTime:jasmine.any(Date)} );
   });
 
   it('should not submit the form if msg or author fields are empty', function (){

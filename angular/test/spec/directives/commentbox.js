@@ -8,8 +8,12 @@ describe('Directive: commentbox', function () {
   var element, scope, httpBackend;
 
   beforeEach(inject(function ($rootScope, $compile, $httpBackend) {
+    //Check the Elapsed time is being rendered properly
+    var oneHourAgo = new Date(); 
+    oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+       
     httpBackend = $httpBackend;
-    httpBackend.when('GET', 'http://localhost:2403/comments/').respond({author: 'Santiago', msg: 'Msg 1', id:1});
+    httpBackend.when('GET', 'http://localhost:2403/comments/').respond([{author: 'Santiago', msg: 'Msg 1', id:1, isoDateAndTime: oneHourAgo}]);
     scope = $rootScope.$new();
     element = angular.element('<comment-box url="http://localhost:2403/comments/" poll-interval="10000"></comment-box>');
     element = $compile(element)(scope);
@@ -28,7 +32,7 @@ describe('Directive: commentbox', function () {
       scope.$digest();
       httpBackend.flush();
       var isolatedScope = element.isolateScope();
-      expect(isolatedScope.data).toEqual( { author : 'Santiago', msg : 'Msg 1', id : 1 })
+      expect(isolatedScope.data).toEqual( [{ author : 'Santiago', msg : 'Msg 1', id : 1 , timeElapsed:"1 hours ago", isoDateAndTime: jasmine.any(Date), $$hashKey: jasmine.any(String)}])
     });
 
     it('should render a CommentList', function(){
