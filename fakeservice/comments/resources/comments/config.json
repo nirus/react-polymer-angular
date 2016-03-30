@@ -16,6 +16,14 @@
 			"required": true,
 			"id": "msg",
 			"order": 1
+		},
+		"isoDateAndTime": {
+			"name": "isoDateAndTime",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "isoDateAndTime",
+			"order": 2
 		}
 	}
 }
